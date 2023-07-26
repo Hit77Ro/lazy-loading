@@ -173,7 +173,7 @@ body {
 .container .box {
   flex-basis: 300px;
   flex-grow: 1;
-  padding: 30px;
+  overflow: hidden;
   border-radius: 20px;
   box-shadow: 0.1rem 0.1rem 0.5rem rgba(68, 68, 68, 0.2666666667);
   background-color: rgba(153, 153, 153, 0.6);

@@ -10,7 +10,7 @@
   .box {
     flex-basis: 300px;
     flex-grow: 1;
-    padding: 30px;
+    overflow: hidden;
     border-radius: 20px;
     box-shadow: $shadow-2;
     background-color: #9999;
