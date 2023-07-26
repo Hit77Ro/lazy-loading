@@ -12,6 +12,7 @@ let observer = new IntersectionObserver(
       if (!entery.isIntersecting) return;
 
       box.firstElementChild.src = box.firstElementChild.dataset.src;
+// stop observing this element , since it's already loaded to avoid performance decreasing
       observer.unobserve(box);
     });
   },
