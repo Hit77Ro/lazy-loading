@@ -1,24 +1,22 @@
-let boxes = document.querySelectorAll(".box")  ; 
+let boxes = document.querySelectorAll(".box");
 
+let observer = new IntersectionObserver(
+  (enteries) => {
+    enteries.forEach((entery) => {
+      const box = entery.target;
 
-let observer = new IntersectionObserver(enteries=> {
+      if (!entery.isIntersecting) return;
 
-  enteries.forEach(entery =>  { 
-    const box = entery.target;
+      box.firstElementChild.src = box.firstElementChild.dataset.src;
+      observer.unobserve(box);
+    });
+  },
+  {
+    threshold: 1,
+    root: null,
+  }
+);
 
-    if(!entery.isIntersecting) return ; 
+boxes.forEach((box) => observer.observe(box));
 
-    box.firstElementChild.src=box.firstElementChild.dataset.src;
-    observer.unobserve(box) ;
-  })
-
-},{
-  threshold:1 ,
-  rootMargin:"100px" 
-
-})
-
-
-
-
-boxes.forEach(box=>observer.observe(box)) ;
+// images are loaded only when the src attribute is set to path to this image
