@@ -17,7 +17,8 @@ let observer = new IntersectionObserver(
     });
   },
   {
-    threshold: 1,
+    threshold: 0,
+// make images load just before it comes into view 100px before the view
     rootMargin: "100px",
   }
 );
