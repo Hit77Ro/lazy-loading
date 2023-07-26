@@ -1,7 +1,7 @@
 # lazy-loading
 lazy-loading images
 => https://hit77ro.github.io/lazy-loading/
-~~~
+~~~javascript
 let boxes = document.querySelectorAll(".box");
 
 let observer = new IntersectionObserver(
