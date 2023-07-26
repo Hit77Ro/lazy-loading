@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as *;
+
+.container {
+  padding-block: 40px;
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  .box {
+    flex-basis: 300px;
+    flex-grow: 1;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: $shadow-2;
+    background-color: #9999;
+    transition: 0.5s;
+  }
+}
