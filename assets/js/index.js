@@ -1,22 +1,20 @@
-let boxes = document.querySelectorAll(".box");
+let lazyImages = document.querySelectorAll("img[data-src]");
 
 let observer = new IntersectionObserver(
   (enteries) => {
     enteries.forEach((entery) => {
-      const box = entery.target;
-
       if (!entery.isIntersecting) return;
+      const image = entery.target;
 
-      box.firstElementChild.src = box.firstElementChild.dataset.src;
-      observer.unobserve(box);
+      image.src = image.dataset.src;
+      //  showing the original images after it loads
+      image.addEventListener("load", () => image.classList.add("loaded"));
+      observer.unobserve(image);
     });
   },
-  {
-    threshold: 1,
-    root: null,
-  }
+  { threshold: 0, rootMargin: "200px", root: null }
 );
 
-boxes.forEach((box) => observer.observe(box));
+lazyImages.forEach((image) => observer.observe(image));
 
 // images are loaded only when the src attribute is set to path to this image
