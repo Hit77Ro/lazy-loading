@@ -2,30 +2,26 @@
 lazy-loading images
 => https://hit77ro.github.io/lazy-loading/
 ~~~javascript
-let boxes = document.querySelectorAll(".box");
+
+let lazyImages = document.querySelectorAll("img[data-src]");
 
 let observer = new IntersectionObserver(
   (enteries) => {
     enteries.forEach((entery) => {
-      const box = entery.target;
-
       if (!entery.isIntersecting) return;
+      const image = entery.target;
 
-      box.firstElementChild.src = box.firstElementChild.dataset.src;
-// stop observing this element , since it's already loaded to avoid performance decreasing
-      observer.unobserve(box);
+      image.src = image.dataset.src;
+      //  showing the original images after it loads
+      image.addEventListener("load", () => image.classList.add("loaded"));
+      observer.unobserve(image);
     });
   },
-  {
-    threshold: 0,
-// make images load just before it comes into view 100px before the view
-    rootMargin: "100px",
-  }
+  { threshold: 0, rootMargin: "200px", root: null }
 );
 
-boxes.forEach((box) => observer.observe(box));
+lazyImages.forEach((image) => observer.observe(image));
 
 // images are loaded only when the src attribute is set to path to this image
-
 
 ~~~
