@@ -1,27 +1,43 @@
 # lazy-loading
+
 lazy-loading images
 => https://hit77ro.github.io/lazy-loading/
-~~~javascript
 
-let lazyImages = document.querySelectorAll("img[data-src]");
+```javascript
 
-let observer = new IntersectionObserver(
-  (enteries) => {
-    enteries.forEach((entery) => {
-      if (!entery.isIntersecting) return;
-      const image = entery.target;
+class LazyLoader {
+  constructor(elements, options) {
+    this.elements = elements;
+    this.options = options || {
+      threshold: 0,
+      rootMargin: "0px",
+      root: null,
+    };
+    this.imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // If the image is intersecting (visible in the viewport), load it
+          this._lazyLoadImage(entry.target);
+          observer.unobserve(entry.target); // Unobserve the image after loading to avoid redundant operations
+        }
+      });
+    }, this.options);
 
-      image.src = image.dataset.src;
-      //  showing the original images after it loads
-      image.addEventListener("load", () => image.classList.add("loaded"));
-      observer.unobserve(image);
-    });
-  },
-  { threshold: 0, rootMargin: "200px", root: null }
-);
+    this._StartObserving();
+  }
 
-lazyImages.forEach((image) => observer.observe(image));
+  _lazyLoadImage(image) {
+    image.src = image.dataset.src;
+    // Show the original image after it loads
+    image.addEventListener("load", () => image.classList.add("loaded"));
+  }
 
-// images are loaded only when the src attribute is set to path to this image
+  _StartObserving() {
+    const lazyImages = this.elements;
+    lazyImages.forEach((image) => this.imageObserver.observe(image));
+  }
+}
 
-~~~
+const lazy = new LazyLoader(document.querySelectorAll("[data-src"));
+
+```
